@@ -334,14 +334,13 @@
       const formData = new FormData(form);
       const payload = Object.fromEntries(formData.entries());
 
-      // Insert your deployed Apps Script Web App URL here
-      const WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbwUA1WUNsJ4465wuCsHQTnNUlRbMQV1OuuaTLduGj7G1RLt8aOj_F4Hyr9l89Tfclg/exec';
+      // Route data to the local FastAPI backend
+      const WEBHOOK_URL = 'http://127.0.0.1:8000/api/generate-pdf';
 
       try {
         const response = await fetch(WEBHOOK_URL, {
           method: 'POST',
-          // CRITICAL: Must use text/plain to bypass Apps Script CORS preflight checks
-          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
         });
 
