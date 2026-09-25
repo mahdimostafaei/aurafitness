@@ -334,17 +334,17 @@
       const formData = new FormData(form);
       const payload = Object.fromEntries(formData.entries());
 
-      // Route data to the local FastAPI backend
-      const WEBHOOK_URL = 'http://127.0.0.1:8000/api/generate_pdf';
+      // Routes data strictly to the Google Apps Script Web App
+      const WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbwUA1WUNsJ4465wuCsHQTnNUlRbMQV1OuuaTLduGj7G1RLt8aOj_F4Hyr9l89Tfclg/exec';
 
       try {
         const response = await fetch(WEBHOOK_URL, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          // CRITICAL: Must use text/plain to bypass Apps Script CORS preflight checks
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
           body: JSON.stringify(payload)
         });
 
-        // Apps Script returns a text output that we parse back to JSON
         const result = await response.json();
 
         if (result.status === 'success') {
