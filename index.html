@@ -335,7 +335,7 @@
       const payload = Object.fromEntries(formData.entries());
 
       // Route data to the local FastAPI backend
-      const WEBHOOK_URL = 'http://127.0.0.1:8000/api/generate-pdf';
+      const WEBHOOK_URL = 'http://127.0.0.1:8000/api/generate_pdf';
 
       try {
         const response = await fetch(WEBHOOK_URL, {
