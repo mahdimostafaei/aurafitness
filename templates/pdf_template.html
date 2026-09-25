@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Your Workout Blueprint</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- THE HEADER BOX -->
+  <div id="page-header">
+    <table class="header-table">
+      <tr>
+        <td class="align-left">
+          {% if logo_bw %}
+          <img src="data:image/jpeg;base64,{{ logo_bw }}" class="header-logo" alt="Logo" />
+          {% endif %}
+          <span class="header-brand">AURAFITNESS.IO</span>
+        </td>
+        <td class="align-right">
+          <span class="header-title">PERSONALIZED WORKOUT PLAN</span>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- THE ACQUISITION FOOTER BOX -->
+  <div id="page-footer">
+    <div class="footer-line"></div>
+    <table class="footer-table">
+      <tr>
+        <td class="align-left">
+          {% if logo_bw %}
+          <img src="data:image/jpg;base64,{{ logo_bw }}" class="header-logo" alt="Logo" />
+          {% endif %}
+          <span class="header-brand">AURAFITNESS.IO</span>
+        <td class="align-right">
+          <span class="page-number"></span>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- PAGE 1 COVER SECTION -->
+  <div class="cover-wrapper">
+    
+    <!-- Pinned to the Left -->
+    {% if logo_bw %}
+   <img src="data:image/jpeg;base64,{{ logo_bw }}" class="cover-logo-img" alt="Logo" />
+    {% endif %}
+
+    <!-- Pinned to the Right -->
+    <div class="cover-url">AURAFITNESS.IO</div>
+
+    <!-- Dead Center -->
+    <h1 class="cover-title">AURA FITNESS</h1>
+    <div class="cover-subtitle">Customize Your AI Workout Split</div>
+    
+  </div>
+
+  <!-- ATHLETE INFO -->
+  <div class="athlete-section">
+    <div class="athlete-badge"><span>ATHLETE:</span> {{ intake.user_name }}</div>
+    <div class="athlete-badge"><span>SCHEDULE:</span> {{ intake.preferred_days }} DAYS / WEEK</div>
+    <div class="athlete-badge"><span>GOAL:</span> {{ intake.primary_goal }}</div>
+    <div class="athlete-badge"><span>SPLIT:</span> {{ intake.preferred_split }}</div>
+  </div>
+
+  <!-- SAFETY CARD -->
+  <div class="card disclaimer-card">
+    <h2>Safety & Medical Notice</h2>
+    <p>This routine is designed for general fitness and physical preparation, not medical rehabilitation. Prioritize form precision, controlled eccentrics, and structured rest intervals. If movement pain occurs, cease the exercise immediately and consult a qualified healthcare provider.</p>
+  </div>
+
+  <!-- ANALYSIS -->
+  <div class="card analysis-card">
+    <h2>Analysis & Overview</h2>
+    <div style="font-size: 13px; line-height: 1.6;">{{ sections.analysis }}</div>
+  </div>
+
+  <!-- WARM-UP -->
+  <div class="card warmup-card">
+    <h2>Warm-Up Protocol & Movement Prep</h2>
+    <div style="font-size: 13px; line-height: 1.6;">{{ sections.warmup }}</div>
+  </div>
+
+  <!-- WORKOUT TABLES -->
+  {% for day in sections.days %}
+  <div class="day-container">
+    <div class="day-header">{{ day.title }}</div>
+    <table>
+      <thead>
+        <tr>
+          <th>NO</th>
+          <th>EXERCISE</th>
+          <th>SETS & REPS</th>
+          <th>TIPS</th>
+          <th>HOW-TO</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for ex in day.exercises %}
+        <tr>
+          <td class="no-col">{{ loop.index }}</td>
+          <td class="exercise-col">{{ ex.name }}</td>
+          <td class="sets-col">
+            {{ ex.sets_reps }}
+            {% if ex.rest %}
+            <span class="rest-sub">{{ ex.rest }}</span>
+            {% endif %}
+          </td>
+          <td class="tips-col">{{ ex.tip }}</td>
+          <td class="video-col">
+            <a class="video-btn" href="https://www.youtube.com/results?search_query={{ ex.video_query }}" target="_blank">&#9654; Video</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% endfor %}
+
+  <!-- PROGRESSION PROTOCOL -->
+  <div class="card" style="margin-top: 30px; page-break-before: auto;">
+    <h2>Progression Protocol & Strategy</h2>
+    <div style="font-size: 13px; line-height: 1.6; white-space: pre-line;">{{ sections.progression }}</div>
+  </div>
+
+</body>
+</html>

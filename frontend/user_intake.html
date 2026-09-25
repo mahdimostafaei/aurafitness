@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AURA FITNESS | Custom Workout Generator</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="brand">
+      <span class="brand-title">AURA FITNESS</span>
+      <span class="brand-tag">AI WORKOUT ARCHITECTURE</span>
+    </div>
+    <div class="stage-tag">MVP &bull; STAGE 0</div>
+  </header>
+
+  <main class="container">
+    <div class="form-header">
+      <h1>Custom Training Protocol Intake</h1>
+      <p>Fill out the diagnostics below. Gemini will evaluate your biomechanics, experience, and constraints to generate a personalized progression blueprint.</p>
+    </div>
+
+    <form id="intakeForm">
+
+      <!-- SECTION 1: PERSONAL & CONTACT -->
+      <section class="form-card">
+        <div class="section-title">
+          <span class="section-num">01</span>
+          <h2>Personal Profile & Contact</h2>
+        </div>
+        
+        <div class="grid-2">
+          <div class="form-group">
+            <label for="user_name">Full Name *</label>
+            <input type="text" id="user_name" name="user_name" required placeholder="e.g. Mahdi Mostafaei" />
+          </div>
+          <div class="form-group">
+            <label for="user_email">Email Address (Where your PDF will be sent) *</label>
+            <input type="email" id="user_email" name="user_email" required placeholder="e.g. name@example.com" />
+          </div>
+        </div>
+
+        <div class="grid-3">
+          <div class="form-group">
+            <label for="user_age">Age *</label>
+            <input type="number" id="user_age" name="user_age" required min="14" max="100" placeholder="26" />
+          </div>
+          <div class="form-group">
+            <label for="user_sex">Sex *</label>
+            <select id="user_sex" name="user_sex" required>
+              <option value="" disabled selected>Select sex</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="user_occupation">Occupation</label>
+            <input type="text" id="user_occupation" name="user_occupation" placeholder="e.g. Software Engineer" />
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="form-group">
+            <label for="user_height">Height (cm) *</label>
+            <input type="number" id="user_height" name="user_height" required placeholder="180" />
+          </div>
+          <div class="form-group">
+            <label for="user_weight">Weight (kg) *</label>
+            <input type="number" id="user_weight" name="user_weight" required placeholder="80" />
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="form-group">
+            <label for="daily_activity">Typical Daily Activity *</label>
+            <select id="daily_activity" name="daily_activity" required>
+              <option value="" disabled selected>Select activity level</option>
+              <option value="Mostly sitting">Mostly sitting</option>
+              <option value="Somewhat active">Somewhat active</option>
+              <option value="Active">Active</option>
+              <option value="Very active">Very active</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="daily_steps">Average Daily Steps (if known)</label>
+            <input type="number" id="daily_steps" name="daily_steps" placeholder="e.g. 8000" />
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 2: TRAINING EXPERIENCE -->
+      <section class="form-card">
+        <div class="section-title">
+          <span class="section-num">02</span>
+          <h2>Training History & Experience</h2>
+        </div>
+
+        <div class="grid-2">
+          <div class="form-group">
+            <label for="experience_level">Current Experience Tier *</label>
+            <select id="experience_level" name="experience_level" required>
+              <option value="" disabled selected>Select level</option>
+              <option value="Complete beginner">Complete beginner</option>
+              <option value="Beginner">Beginner</option>
+              <option value="Intermediate">Intermediate</option>
+              <option value="Advanced">Advanced</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="training_duration">How long have you been training? *</label>
+            <input type="text" id="training_duration" name="training_duration" required placeholder="e.g. 6 months, 2 years" />
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="form-group">
+            <label for="consistent_training">Have you trained consistently before? *</label>
+            <select id="consistent_training" name="consistent_training" required>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="training_hiatus">Have you stopped training for long periods before? *</label>
+            <select id="training_hiatus" name="training_hiatus" required>
+              <option value="No">No</option>
+              <option value="Yes">Yes</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="strength_level">Current Strength Benchmarks (if known)</label>
+          <input type="text" id="strength_level" name="strength_level" placeholder="e.g. Bench 60kg x 8, Squat 80kg x 5, Dumbbell Curl 12kg" />
+        </div>
+      </section>
+
+      <!-- SECTION 3: GOALS & PRIORITIES -->
+      <section class="form-card">
+        <div class="section-title">
+          <span class="section-num">03</span>
+          <h2>Primary Goals & Outcomes</h2>
+        </div>
+
+        <div class="grid-2">
+          <div class="form-group">
+            <label for="primary_goal">Primary Goal *</label>
+            <select id="primary_goal" name="primary_goal" required>
+              <option value="" disabled selected>Select primary goal</option>
+              <option value="Muscle gain">Muscle gain</option>
+              <option value="Strength">Strength</option>
+              <option value="Fat loss">Fat loss</option>
+              <option value="General fitness">General fitness</option>
+              <option value="Body recomposition">Body recomposition</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="secondary_goal">Secondary Goal</label>
+            <input type="text" id="secondary_goal" name="secondary_goal" placeholder="e.g. Core stability, stamina" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="top_priority">What is most important to you? *</label>
+          <input type="text" id="top_priority" name="top_priority" required placeholder="e.g. Gaining muscle while keeping the workouts manageable and joint-friendly" />
+        </div>
+      </section>
+
+      <!-- SECTION 4: SCHEDULE & SPLIT -->
+      <section class="form-card">
+        <div class="section-title">
+          <span class="section-num">04</span>
+          <h2>Weekly Schedule & Time Allocation</h2>
+        </div>
+
+        <div class="grid-2">
+          <div class="form-group">
+            <label for="preferred_days">Preferred Gym Days / Week *</label>
+            <select id="preferred_days" name="preferred_days" required>
+              <option value="2">2 Days</option>
+              <option value="3" selected>3 Days</option>
+              <option value="4">4 Days</option>
+              <option value="5">5 Days</option>
+              <option value="6">6 Days</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="max_days">Maximum Realistic Gym Days / Week *</label>
+            <input type="number" id="max_days" name="max_days" required min="1" max="7" value="3" />
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="form-group">
+            <label for="workout_duration">Approximate Workout Duration *</label>
+            <select id="workout_duration" name="workout_duration" required>
+              <option value="45 minutes">45 minutes</option>
+              <option value="60 minutes" selected>60 minutes</option>
+              <option value="75 minutes">75 minutes</option>
+              <option value="90 minutes">90 minutes</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="preferred_split">Preferred Split Structure *</label>
+            <select id="preferred_split" name="preferred_split" required>
+              <option value="I don't know" selected>I don't know (Let AI optimize)</option>
+              <option value="2-day split">2-day split</option>
+              <option value="3-day split">3-day split</option>
+              <option value="4-day split">4-day split</option>
+              <option value="5-day split">5-day split</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 5: GYM & EQUIPMENT -->
+      <section class="form-card">
+        <div class="section-title">
+          <span class="section-num">05</span>
+          <h2>Equipment & Environment</h2>
+        </div>
+
+        <div class="form-group">
+          <label for="training_location">Training Environment *</label>
+          <select id="training_location" name="training_location" required>
+            <option value="Commercial gym" selected>Commercial gym (Full gear)</option>
+            <option value="Home gym">Home gym (Limited gear)</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="equipment_available">Equipment Available (List key items) *</label>
+          <textarea id="equipment_available" name="equipment_available" rows="3" required placeholder="e.g. Barbell, Dumbbells, Cable machine, Leg Press, Pull-up bar, Bench"></textarea>
+        </div>
+      </section>
+
+      <!-- SECTION 6: INJURIES & LIMITATIONS -->
+      <section class="form-card alert-card">
+        <div class="section-title">
+          <span class="section-num red-text">06</span>
+          <h2 class="red-text">Safety, Injuries & Limitations</h2>
+        </div>
+
+        <div class="form-group">
+          <label for="injuries_limitations">Any injuries, recurring pain, or joint restrictions? *</label>
+          <textarea id="injuries_limitations" name="injuries_limitations" rows="3" required placeholder="Enter 'None' or describe (e.g. Lower back stiffness on conventional deadlifts, mild left shoulder impingement)."></textarea>
+        </div>
+      </section>
+
+      <!-- SECTION 7: PREFERENCES & STYLE -->
+      <section class="form-card">
+        <div class="section-title">
+          <span class="section-num">07</span>
+          <h2>Preferences & Execution Style</h2>
+        </div>
+
+        <div class="grid-2">
+          <div class="form-group">
+            <label for="exercises_enjoyed">Exercises You Enjoy</label>
+            <input type="text" id="exercises_enjoyed" name="exercises_enjoyed" placeholder="e.g. Incline DB press, Lat pulldown" />
+          </div>
+          <div class="form-group">
+            <label for="exercises_disliked">Exercises You Dislike</label>
+            <input type="text" id="exercises_disliked" name="exercises_disliked" placeholder="e.g. Burpees, Lunges" />
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="form-group">
+            <label for="exercises_cannot_perform">Exercises You Cannot Perform</label>
+            <input type="text" id="exercises_cannot_perform" name="exercises_cannot_perform" placeholder="e.g. Barbell back squat" />
+          </div>
+          <div class="form-group">
+            <label for="exercises_wanted">Exercises Specifically Wanted</label>
+            <input type="text" id="exercises_wanted" name="exercises_wanted" placeholder="e.g. Dips, RDLs" />
+          </div>
+        </div>
+
+        <div class="grid-3">
+          <div class="form-group">
+            <label for="preferred_style">Preferred Style *</label>
+            <select id="preferred_style" name="preferred_style" required>
+              <option value="Combination" selected>Combination (Machines + Free Weights)</option>
+              <option value="Machines">Machines Only</option>
+              <option value="Free weights">Free Weights Only</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="workout_difficulty">Perceived Difficulty *</label>
+            <select id="workout_difficulty" name="workout_difficulty" required>
+              <option value="Easy">Easy</option>
+              <option value="Moderate" selected>Moderate</option>
+              <option value="Hard">Hard</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="exercise_variety">Exercise Variety *</label>
+            <select id="exercise_variety" name="exercise_variety" required>
+              <option value="Simple and minimal exercises" selected>Simple & Minimal</option>
+              <option value="More exercise variety">More Variety</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <button type="submit" id="submitBtn" class="cta-button">
+        BUILD MY WORKOUT BLUEPRINT &rarr;
+      </button>
+      <p id="statusMsg" class="status-msg"></p>
+    </form>
+  </main>
+
+  <footer class="footer">
+    AURA FITNESS ENGINE &bull; STAGE 0 FREE MVP &bull; ACQUISITION STACK
+  </footer>
+
+  <script>
+    const form = document.getElementById('intakeForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const statusMsg = document.getElementById('statusMsg');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      submitBtn.disabled = true;
+      submitBtn.innerText = "PROCESSING DIAGNOSTIC...";
+      statusMsg.innerText = "Transmitting metrics to queue manager...";
+      statusMsg.style.color = "#6D39A6";
+
+      const formData = new FormData(form);
+      const payload = Object.fromEntries(formData.entries());
+
+      // Insert your deployed Apps Script Web App URL here
+      const WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbwUA1WUNsJ4465wuCsHQTnNUlRbMQV1OuuaTLduGj7G1RLt8aOj_F4Hyr9l89Tfclg/exec';
+
+      try {
+        const response = await fetch(WEBHOOK_URL, {
+          method: 'POST',
+          // CRITICAL: Must use text/plain to bypass Apps Script CORS preflight checks
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(payload)
+        });
+
+        // Apps Script returns a text output that we parse back to JSON
+        const result = await response.json();
+
+        if (result.status === 'success') {
+          submitBtn.innerText = "PROTOCOL GENERATED!";
+          statusMsg.innerText = "Success! Your blueprint is being compiled and dispatched to your email.";
+          statusMsg.style.color = "#008000";
+        } else {
+          throw new Error("Server returned status: " + result.message);
+        }
+      } catch (err) {
+        console.error(err);
+        submitBtn.disabled = false;
+        submitBtn.innerText = "BUILD MY WORKOUT BLUEPRINT →";
+        statusMsg.innerText = "Submission captured. (Ready for Phase 3 API connection).";
+        statusMsg.style.color = "#111827";
+      }
+    });
+  </script>
+</body>
+</html>
